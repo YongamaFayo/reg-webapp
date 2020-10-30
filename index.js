@@ -10,14 +10,14 @@ const app = express();
 const pg = require("pg");
 const Pool = pg.Pool;
 
-const connectionString = process.env.DATABASE_URL || 'postgresql://codex-coder:codex123@localhost:5432/registration';
+const connectionString = process.env.DATABASE_URL || 'postgresql://yongama:pg123@localhost:5432/registration';
 
 const pool = new Pool({
   connectionString,
 
 });
 
-const registration = reg(pool);
+const registration = reg(pool); 
 
 app.engine('handlebars', exphbs({ defaultLayout: 'main', layoutsDir: 'views/layouts' }));
 
@@ -46,7 +46,7 @@ app.get("/", function (req, res) {
 app.post("/reg_numbers", async function (req, res) {
 
   var reg = req.body.regInput;
-  var lang = req.body.regDisplay;
+  //var lang = req.body.regDisplay;
 
   if(!reg){
     req.flash("error", "Please enter registration number")
@@ -54,7 +54,7 @@ app.post("/reg_numbers", async function (req, res) {
   }
 
   res.render("index", {
-    regDisplay: await registration.getReg(reg, lang),
+    regDisplay: await registration.getReg(reg),
     
   })
 });

@@ -1,18 +1,18 @@
 module.exports = function registration(pool) {
 
-    async function regCheck(regNumber) {
-        var check = await pool.query('select registration from regNumber where registration = $1', regNumber);
+    async function regCheck(registration) {
+        var check = await pool.query('select registration from registration where registration = $1', registration);
         return check;
     }
 
     async function getReg() {
 
-        var inserting = await pool.query("select * from regNumber");
+        var inserting = await pool.query("select * from registration");
         return inserting;
     }
 
     async function insertReg(reg) {
-        var insert = await pool.query('insert into regNumber(registration, towns) values ($1, $2)', [reg, 1]);
+        var insert = await pool.query('insert into registration(registration, towns) values ($1, $2)', [reg, 1]);
         return insert;
 
     }
@@ -77,12 +77,12 @@ module.exports = function registration(pool) {
 //         res.redirect('/')
 //     }
 //     const addFun = function (req, res) {
-//         var regNumber = req.body.name
+//         var registration = req.body.name
 
-//         console.log(regNumber);
+//         console.log(registration);
 
-//         if (!regNumber) {
-//             res.render('regNum', { reg: regNumber });
+//         if (!registration) {
+//             res.render('regNum', { reg: registration });
 //         } else {
 //             models.registrationNames.findOne({
 //                 name: req.body.name
