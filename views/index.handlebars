@@ -81,13 +81,13 @@
 
   button {
     cursor: default;
-    
+
     background: grey;
     color: #000;
     border-radius: 15px;
     padding: 10px;
 
-      font-size: 20px;
+    font-size: 20px;
     font-family: 'Press Start 2P', cursive;
   }
 
@@ -185,6 +185,8 @@
           <button class="">Add reg number</button>
 
           <br>
+
+
           <br>
           <br>
 
@@ -194,8 +196,8 @@
 
           </div>
         </div>
-        <br>
-        <br>
+        
+        
 
       </form>
 
@@ -210,13 +212,17 @@
 
       </div>
 
-
+      <div>
+        {{#each regDisplay}}
+        <li>{{this.reg}}</li>
+        {{/each}}
+      </div>
 
       <div class="success">
 
       </div>
 
-      <form action="/clear" method="GET">
+      <form action="/reset" method="GET">
 
         <div class="clear">
           <button class="submit" name="clearBtn">Reset </button>
@@ -242,47 +248,3 @@
 
 
 </body>
-
-
-
-
-
-
-
-
-
-
-
-
-
-{{!--  
-<head>
-    <link rel="stylesheet" href="/public/CSS/style.css">
-</head>
-<form action="/" method="post">
-    
-    <h5>Registration numbers</h5>
-    <input type="text" id="inpBox" placeholder="Enter Registration number" name="name" value="" required=""></input><br><br>
-    <button type="submit" name="" required="">Add</button><br><br>
-  </div>
-
-</form>
-
-<form action="/reg_Numbers" method="post">
-<div class="optBtn">
-  <input type="radio" name="name" value="CA" id="capetown">Cape Town
-  <input type="radio" name="name" value="CY" id="belville"> Belville
-  <input type="radio" name="name" value="CK" id="nalmesbury">Malmesbury
-  <input type="radio" name="name" value="" id="all">Select All<br><br>
-  <button type="submit" name="" >Show</button>
-</form>
-<div class="regNum">
-
-<center><ul>
-  {{#each reg}}
-  <li>{{this.name}}
-  </li>
-  {{/each}}
-</ul>
-</center>
-</div> --}}

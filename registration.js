@@ -1,46 +1,75 @@
 module.exports = function registration(pool) {
 
     async function regCheck(registration) {
-        var check = await pool.query('select registration from registration where registration = $1', registration);
+        var check = await pool.query('select registration from regNumber where registration = $1', registration);
         return check;
+    }
+
+    async function plateNumber(x) {
+        //const item = await pool.query(`select id from reg where plate = $1`[x])
+
+        const code = x.substring(0, 2)
+        const theId = await pool.query(`select id from towns where code = $1`, [code])
+        const id = theId.rows[0].id
+
+        let checking
+        if (id > 0) {
+            checking = await pool.query(`select * from reg where reg_numb = $1`, [x])
+        } else {
+            return false
+        }
+
+        if (checking.rowCount === 0) {
+            await pool.query(`insert into reg (reg_numb, town_id) values ($1, $2)`, [x, id])
+        }
+    }
+
+    async function insertReg(reg) {
+        var code = reg.substring(0,2)
+        var theId= await pool.query(`select id from towns where registration = $1`,[code])
+        var id = theId.rows[0].id
+        var insert = await pool.query('insert into regNumber(reg, townsId) values ($1, $2)', [reg, id]);
+        
+        
+        return insert;
+        
+
+
     }
 
     async function getReg() {
 
-        var inserting = await pool.query("select * from registration");
-        return inserting;
+        var inserting = await pool.query("select reg from regNumber");
+        return inserting.rows;
     }
 
-    async function insertReg(reg) {
-        var insert = await pool.query('insert into registration(registration, towns) values ($1, $2)', [reg, 1]);
-        return insert;
 
-    }
 
-    
-    async function theReg(theRegistration){
+
+    async function theReg(theRegistration) {
         var theRegistration = await regCheck(theReg);
-        if(theRegistration.rowCount > 0){
-        await PaymentRequestUpdateEvent(theRegistration);
+        if (theRegistration.rowCount > 0) {
+            await PaymentRequestUpdateEvent(theRegistration);
         }
         else {
             await insertReg(theRegistration);
         }
     }
 
-    async function reset(){
+    async function reset() {
 
-        await pool.query('delete from ');
-       
-       }
+        await pool.query('delete from regNumber');
+
+    }
 
     return {
         insertReg,
+        plateNumber,
         getReg,
         regCheck,
         theReg,
         reset
-       
+
     }
 }
 
@@ -49,96 +78,3 @@ module.exports = function registration(pool) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// module.exports = function (models) {
-//     const showForm = function (req, res, next) {
-//         res.redirect('/')
-//     }
-//     const addFun = function (req, res) {
-//         var registration = req.body.name
-
-//         console.log(registration);
-
-//         if (!registration) {
-//             res.render('regNum', { reg: registration });
-//         } else {
-//             models.registrationNames.findOne({
-//                 name: req.body.name
-//             }, function (err, regResults) {
-
-//                 if (err) {
-//                     console.log(err);
-//                 }
-
-//                 if (!regResults) {
-//                     models.registrationNames.create({
-//                         name: req.body.name
-//                     }, function (err, results) {
-//                         if (err) {
-//                             console.log(err)
-//                         }
-
-//                         models.registrationNames.find({}, function (err, results) {
-//                             if (err) {
-//                                 console.log(err);
-//                             }
-//                             else {
-//                                 res.render('regNum', { reg: results });
-//                             }
-//                         });
-
-//                     })
-//                 }
-
-//                 if (regResults) {
-//                     req.flash('error', 'registration already exist!');
-//                     res.render('regNum');
-//                 }
-//             });
-//         }
-//     };
-
-
-//     var filterData = function (req, res) {
-//         var name = req.body.name
-//         console.log(name);
-//         models.registrationNames.find({ name: { $regex: name } }, function (err, results) {
-//             if (err) {
-//                 console.log(err)
-//             }
-//             else {
-//                 res.render("regNum", { reg: results });
-//             }
-//         })
-//     }
-
-
-
-//     return {
-//         showForm,
-//         addFun,
-//         filterData
-//     };
-// }

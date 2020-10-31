@@ -7,8 +7,8 @@ create table towns(
 create table regNumber(
     id serial not null primary key,
     reg text not null,
-    startsWith int not null,
-    foreign key (name_of_registration) references towns(id)
+    townsId int not null,
+    foreign key (townsId) references towns(id)
 );
 
 INSERT INTO towns (registration, name_of_town) VALUES ('CJ', 'Paarl');
