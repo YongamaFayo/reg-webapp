@@ -44,50 +44,34 @@ app.get("/", function (req, res) {
 });
 
 app.post('/reg_numbers', async function (req, res) {
-  let plate = req.body.plate
+  let plate = req.body.regInput
 
   if (plate === '') {
-      req.flash('error', 'Enter a plate')
+    req.flash('error', 'Enter a plate')
   } else if (!(/C[AYJ] \d{3,6}$/.test(plate))) {
-      req.flash('error', 'Enter a registration number')
+    req.flash('error', 'Enter a registration number')
   } else {
-      await registration.plateNumber(plate)
+    await registration.plateNumber(plate)
   }
 
   const plates = await registration.getReg()
 
   res.render('index', {
-      plateNum: plates
+    plateNum: plates
   })
 
 })
 
-app.post("/reg_numbers", async function (req, res) {
 
-  var reg = req.body.regInput;
-  console.log(reg)
-  //var lang = req.body.regDisplay;
-
-  if (!reg) {
-    req.flash("error", "Please enter registration number")
-    res.render("index");
-  }else{
-    await registration.insertReg(reg)
-  }
-
-  res.render("index", {
-    regDisplay: await registration.getReg(),
-
-  })
-});
 
 
 app.get("/reg_numbers", async function (req, res) {
 
-  var indiReg = getReg()
+  var indiReg = await registration.getReg()
+  console.log(indiReg)
 
-  res.render("reg_numbers", {
-    message: indiReg
+  res.render("index", {
+    regDisplay: indiReg
 
 
 

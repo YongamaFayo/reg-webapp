@@ -1,7 +1,7 @@
 module.exports = function registration(pool) {
 
     async function regCheck(registration) {
-        var check = await pool.query('select registration from regNumber where registration = $1', registration);
+        var check = await pool.query('select registration from regNumber where reg = $1', [registration]);
         return check;
     }
 
@@ -9,18 +9,18 @@ module.exports = function registration(pool) {
         //const item = await pool.query(`select id from reg where plate = $1`[x])
 
         const code = x.substring(0, 2)
-        const theId = await pool.query(`select id from towns where code = $1`, [code])
+        const theId = await pool.query(`select id from towns where registration = $1`, [code])
         const id = theId.rows[0].id
 
         let checking
         if (id > 0) {
-            checking = await pool.query(`select * from reg where reg_numb = $1`, [x])
+            checking = await pool.query(`select * from regnumber where reg = $1`, [x])
         } else {
             return false
         }
 
         if (checking.rowCount === 0) {
-            await pool.query(`insert into reg (reg_numb, town_id) values ($1, $2)`, [x, id])
+            await pool.query(`insert into regnumber (reg, townsid) values ($1, $2)`, [x, id])
         }
     }
 
@@ -28,7 +28,7 @@ module.exports = function registration(pool) {
         var code = reg.substring(0,2)
         var theId= await pool.query(`select id from towns where registration = $1`,[code])
         var id = theId.rows[0].id
-        var insert = await pool.query('insert into regNumber(reg, townsId) values ($1, $2)', [reg, id]);
+        var insert = await pool.query('insert into regNumber(reg, townsid) values ($1, $2)', [reg, id]);
         
         
         return insert;
@@ -38,8 +38,7 @@ module.exports = function registration(pool) {
     }
 
     async function getReg() {
-
-        var inserting = await pool.query("select reg from regNumber");
+        var inserting = await pool.query(`select reg from regNumber`);
         return inserting.rows;
     }
 
