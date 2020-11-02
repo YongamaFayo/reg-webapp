@@ -48,7 +48,7 @@ app.post('/reg_numbers', async function (req, res) {
 
   if (plate === '') {
     req.flash('error', 'Enter a plate')
-  } else if (!(/C[AYJ] \d{3,6}$/.test(plate))) {
+  } else if (!(/C[AKJ] \d{3,6}$/.test(plate))) {
     req.flash('error', 'Enter a registration number')
   } else {
     await registration.plateNumber(plate)
@@ -78,6 +78,14 @@ app.get("/reg_numbers", async function (req, res) {
   })
 
 });
+app.post('/reg_number', async function (req, res) {
+  let area = req.body.town
+  // console.log(area)
+  const filtering= await registration.filter(area)
+  res.render('index', {
+      plateNum: filtering
+  })
+})
 
 
 app.get('/reset', async function (req, res) {

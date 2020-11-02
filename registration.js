@@ -55,6 +55,23 @@ module.exports = function registration(pool) {
         }
     }
 
+    async function filter(code) {
+        
+        if (code == "all") {
+            const filtering = await pool.query(`select reg from regNumber`)
+            return filtering.rows
+        } else {
+            const theId = await pool.query(`select id from towns where registration = $1`, [code])
+            const id = theId.rows[0].id
+            
+
+            const place = await pool.query(`select * from regNumber where townsid = $1`, [id])
+            return place.rows
+        }
+
+    }
+
+
     async function reset() {
 
         await pool.query('delete from regNumber');
@@ -67,7 +84,8 @@ module.exports = function registration(pool) {
         getReg,
         regCheck,
         theReg,
-        reset
+        reset,
+        filter
 
     }
 }

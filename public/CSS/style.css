@@ -1,4 +1,4 @@
-@media only screen and (min-width: 200px) {
+/* @media only screen and (min-width: 200px) {
 	body {
 		font-family: 'Press Start 2P', cursive;
 		background-color:black;
@@ -132,14 +132,14 @@
 	li {
 		padding: 1em;
 		/* margin: auto; */
-		list-style: none;
+		/* list-style: none;
 		font-family: 'Press Start 2P', cursive;
 	}
 	.error {
 		color: red;
 	}
 }
-
+ */
 
 
 
@@ -190,4 +190,4 @@
     text-align: center;
     background-color: grey;
   }
-  */
+  */ 
