@@ -47,9 +47,9 @@ app.post('/reg_numbers', async function (req, res) {
   let plate = req.body.regInput
 
   if (plate === '') {
-    req.flash('error', 'Enter a plate')
-  } else if (!(/C[AKJ] \d{3,6}$/.test(plate))) {
     req.flash('error', 'Enter a registration number')
+  } else if (!(/C[AKJ] \d{3,6}$/.test(plate))) {
+    req.flash('error', 'Enter a correct registration number')
   } else {
     await registration.plateNumber(plate)
   }
