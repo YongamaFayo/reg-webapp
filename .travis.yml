@@ -7,8 +7,8 @@ node_js:
   - "12.18.3"
 
 before_script:
-  - psql -c 'create database  table;' -U postgres
-  - psql -U postgres -d table -a -f table.sql
+  - psql -c 'create database  registration;' -U postgres
+  - psql -U postgres -d registration -a -f table.sql
 
 services:
   - postgresql
