@@ -1,0 +1,14 @@
+language: node_js
+
+env:
+  - DATABASE_URL=postgresql://postgres@localhost:5432/reglist
+
+node_js:
+  - "12.18.3"
+
+before_script:
+  - psql -c 'create database  reglist;' -U postgres
+  - psql -U postgres -d reglist -a -f reglist.sql
+
+services:
+  - postgresql
