@@ -80,7 +80,7 @@ app.get("/reg_numbers", async function (req, res) {
 });
 app.post('/reg_number', async function (req, res) {
   let area = req.body.town
-  // console.log(area)
+  
   const filtering= await registration.filter(area)
   res.render('index', {
       plateNum: filtering
