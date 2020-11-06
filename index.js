@@ -48,10 +48,12 @@ app.post('/reg_numbers', async function (req, res) {
 
   if (plate === '') {
     req.flash('error', 'Enter a registration number')
-  } else if (!(/C[AKJ] \d{3,6}$/.test(plate))) {
+  } else if (!(/C[AKJ]\s\d{3}-\d{3}|C[AKJ]\s\d{3}$/.test(plate))) {
+    // else if (!(/C[AKJ] \d{3,6}$/.test(plate))) {
     req.flash('error', 'Enter a correct registration number')
   } else {
     await registration.plateNumber(plate)
+    req.flash('success', 'You have entered a correct registration number')
   }
 
   const plates = await registration.getReg()
@@ -107,4 +109,3 @@ const PORT = process.env.PORT || 3009;
 app.listen(PORT, function () {
   console.log("App started at port", PORT);
 })
-

@@ -2,7 +2,7 @@
   @media only screen and (min-width: 200px) {
     body {
       font-family: 'Press Start 2P', cursive;
-      background-color: grey;
+      background-color: blanchedalmond;
       color: black margin: 50px;
       padding: 50px;
     }
@@ -83,7 +83,7 @@
   button {
     cursor: default;
 
-    background:white;
+    background: white;
     color: #000;
     border-radius: 15px;
     padding: 10px;
@@ -98,7 +98,7 @@
 
   button:hover,
   button:focus {
-    background-color:white;
+    background-color: white;
     color: #000;
   }
 
@@ -146,12 +146,19 @@
   }
 
   .clear {
-    {{!-- padding-top: 2em; --}}
-     font-family: 'Press Start 2P', cursive
-    text-align: center;
+      {
+        {
+         !-- padding-top: 2em;
+        --
+      }
+    }
+
+    font-family: 'Press Start 2P',
+    cursive text-align: center;
   }
+
   .center {
-    
+
     text-align: center;
   }
 
@@ -162,10 +169,14 @@
     font-family: 'Press Start 2P', cursive;
   }
 
-  
+
 
   .error {
     color: red;
+  }
+
+  .success {
+    color: darkgreen;
   }
   }
 
@@ -197,27 +208,30 @@
 
     <div class="row">
       <form action="/reg_numbers" method="POST">
-          <div>
-        <div class="header">
-          <h1>THE REGISTRATION FORM</h1>
-        </div>
+        <div>
+          <div class="header">
+            <h1>THE REGISTRATION FORM</h1>
+            
+          </div>
 
-        <div class="example">
-
-        </div>
-        <div class="main">
-          <input name="regInput" class="regString" placeholder="enter a registration number">
-          <button class="">Add reg number</button>
-
-          <br>
-          
-
-          <div class="message">
-
-            {{messages.error}}
+          <div class="example">
 
           </div>
-        </div>
+          <div class="main">
+            <input name="regInput" class="regString" placeholder="enter a registration number">
+            <button class="">Add reg number</button>
+          <div><h10>e.g CA 123, CJ 456, CY 789</h10></div>
+            <div class="error">
+
+              {{messages.error}}
+
+            </div>
+            <div class="success">
+              {{messages.success}}
+
+            </div>
+
+          </div>
 
       </form>
 
@@ -239,7 +253,7 @@
       <div class="col-2">
 
         <div class="center">
-          
+
           <button class="filterBtn" type="submit">Filter</button>
         </div>
         </form>
@@ -255,10 +269,10 @@
           </div>
         </form>
       </div>
-  
+
       <div class="col-4"></div>
-    
-</div>
+
+    </div>
     <div class="list">
       <ul>
 
@@ -269,9 +283,6 @@
     </div>
 
 
-    <div class="success">
-
-    </div>
 
 
 

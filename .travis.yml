@@ -1,14 +1,14 @@
 language: node_js
 
 env:
-  - DATABASE_URL=postgresql://yongama:pg123@localhost:5432/table
+  - DATABASE_URL=postgresql://yongama:pg123@localhost:5432/registration
 
 node_js:
   -"12.18.3"
 
 before_script:
-  -psql -c 'create database  registration;' -U postgres
-  -psql -U postgres -d registration -a -f table.sql
+  - psql -c 'create database  registration;' -U postgres
+  - psql -U postgres -d registration -a -f table.sql
 
 services:
-  -postgresql
+  - postgresql
