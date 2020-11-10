@@ -50,7 +50,7 @@ app.post('/reg_numbers', async function (req, res) {
 
   if (plate === '') {
     req.flash('error', 'Enter a registration number')
-  } else if (!(/C[AKJ]\s\d{3}-\d{3}|C[AKJ]\s\d{3}|C[AKJ]\s\d{3}\d{3}$/.test(plate))) {
+  } else if (!(/C[AKJ]\s\d{3}-\d{3}$|C[AKJ]\s\d{3}$|C[AKJ]\s\d{3}\d{3}$/.test(plate))) {
     // else if (!(/C[AKJ] \d{3,6}$/.test(plate))) {
     req.flash('error', 'Enter a correct registration number')
   } else {
