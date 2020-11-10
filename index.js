@@ -38,9 +38,11 @@ app.use(flash());
 app.use(express.static('public'));
 
 
-app.get("/", function (req, res) {
-
-  res.render("index")
+app.get("/", async function (req, res) {
+  const plates = await registration.getReg()
+  res.render('index', {
+    plateNum: plates
+  })
 });
 
 app.post('/reg_numbers', async function (req, res) {
@@ -82,10 +84,10 @@ app.get("/reg_numbers", async function (req, res) {
 });
 app.post('/reg_number', async function (req, res) {
   let area = req.body.town
-  
-  const filtering= await registration.filter(area)
+
+  const filtering = await registration.filter(area)
   res.render('index', {
-      plateNum: filtering
+    plateNum: filtering
   })
 })
 
