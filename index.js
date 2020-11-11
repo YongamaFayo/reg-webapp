@@ -84,11 +84,14 @@ app.get("/reg_numbers", async function (req, res) {
 });
 app.post('/reg_number', async function (req, res) {
   let area = req.body.town
-
-  const filtering = await registration.filter(area)
-  res.render('index', {
-    plateNum: filtering
-  })
+  if (area === '') {
+    req.flash('error', 'please select a town')
+  } else {
+    const filtering = await registration.filter(area)
+    res.render('index', {
+      plateNum: filtering
+    })
+  }
 })
 
 
